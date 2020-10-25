@@ -2,8 +2,8 @@ import time
 import cv2
 import io
 import numpy as np
-
-from flask import Flask
+import base64
+from flask import Flask, send_file
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
@@ -25,8 +25,7 @@ def get_current_time():
 @app.route('/api/img')
 def img():
     rgb = np.random.randint(255, size=(800, 800, 3), dtype=np.uint8)
-
-    is_success, buffer = cv2.imencode(".jpg", rgb)
-    io_buf = io.BytesIO(buffer)
-    # base64.b64encode(io_buf.getvalue())
-    return send_file(io_buf, mimetype='image/jpg')
+    is_success, buffer = cv2.imencode(".png", rgb)
+    img_byte_arr = io.BytesIO(buffer)
+    my_encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
+    return {"img": my_encoded_img}
