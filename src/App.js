@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+import './App.css';
+
 import Home from './pages/Home.js';
 import Proj1 from './pages/Proj1.js'
-import './App.css';
+import Annotation from './pages/Annotation.js'
+
 
 function App() {
 	return (
@@ -21,6 +24,10 @@ function App() {
 
 						<Route path="/proj1">
 							<Proj1 />
+						</Route>
+
+						<Route path="/annotation">
+							<Annotation />
 						</Route>
 					</Switch>
 				</BrowserRouter>
